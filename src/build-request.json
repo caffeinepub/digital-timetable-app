@@ -1,0 +1,209 @@
+{
+  "kind": "build_request",
+  "title": "Digital Timetable App with Time-Restricted Task Completion Tracking",
+  "projectName": "Smart Timetable",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "text": "Implement image upload functionality that accepts timetable images (handwritten or printed) and stores them for processing",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-user-1"
+        ],
+        "quotes": [
+          "The user will upload an image of their handwritten or printed timetable"
+        ]
+      },
+      "acceptanceCriteria": [
+        "User can select and upload image files from their device",
+        "Supported formats include common image types (JPG, PNG)",
+        "Upload interface provides visual feedback during upload process"
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "text": "Extract timetable data from uploaded images using OCR, parsing days of the week (Monday-Sunday), time slots, task/subject names, and optional location information, converting to structured JSON format",
+      "target": "backend",
+      "source": {
+        "messageIds": [
+          "msg-user-1"
+        ],
+        "quotes": [
+          "The AI must read the image and extract all relevant information such as: Days of the week (Monday, Tuesday, etc.), Time slots for each activity or subject, Subject or activity name, Optional location (if mentioned)"
+        ]
+      },
+      "acceptanceCriteria": [
+        "OCR accurately extracts timetable data from clear images",
+        "Handles messy handwriting with reasonable accuracy",
+        "Parses time slots in various formats (e.g., '9:00-10:00', '9-10', '09:00 AM - 10:00 AM')",
+        "Identifies days of the week correctly",
+        "Outputs structured JSON matching the format: {\"Monday\": [{\"time\": \"9:00-10:00\", \"subject\": \"Math\", \"done\": false}]}",
+        "Preserves optional location data if present in the image"
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "text": "Display extracted timetable as an editable table with columns for Day, Time, Task/Subject, and Done checkbox, allowing users to modify task names and details",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-user-1"
+        ],
+        "quotes": [
+          "After extraction, the timetable should be displayed in a user-editable table. Each row must contain: Day, Time slot, Subject or activity, A 'Done' checkbox"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Table displays all extracted timetable entries in rows",
+        "Each row shows Day, Time slot, Task/Subject, and Done checkbox",
+        "Task/Subject fields are editable by the user",
+        "Changes to task names persist and update the underlying data structure",
+        "Table is responsive and accessible"
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "text": "Implement time-restricted Done checkbox that only enables during the scheduled time slot for each task, validating current time against task schedule before allowing completion marking",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-user-1"
+        ],
+        "quotes": [
+          "The 'Done' checkbox should only be enabled if the user is marking the task at the correct scheduled time",
+          "If a task is scheduled for 9:00–10:00, the checkbox can only be ticked during this time slot",
+          "If the user tries to tick the task before or after the scheduled time, the checkbox should be disabled or restricted"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Done checkbox is disabled when current time is outside the task's scheduled time slot",
+        "Done checkbox is enabled only during the exact scheduled time window",
+        "Visual indicator shows why checkbox is disabled (e.g., tooltip or message)",
+        "System uses accurate current time for validation",
+        "Completed tasks remain marked as done after the time window passes",
+        "User cannot manually enable or override time restrictions"
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "text": "Store timetable data with task completion status in backend, maintaining synchronization between table display and JSON structure",
+      "target": "backend",
+      "source": {
+        "messageIds": [
+          "msg-user-1"
+        ],
+        "quotes": [
+          "The JSON should always match the table",
+          "Generate a structured JSON for programmatic use"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Timetable data persists across sessions",
+        "Task completion (done) status is stored and retrieved accurately",
+        "Updates to task names or details sync to backend immediately",
+        "JSON structure matches the specified format with days as keys and arrays of task objects",
+        "Data integrity maintained between frontend table and backend JSON"
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "text": "Handle unclear or incomplete timetable images gracefully by leaving blank fields in the JSON structure without crashing, estimating ambiguous time slots when possible and marking them clearly",
+      "target": "backend",
+      "source": {
+        "messageIds": [
+          "msg-user-1"
+        ],
+        "quotes": [
+          "If the timetable image is unclear or missing some information: Leave the corresponding fields blank in the JSON or table, Do not crash; maintain the structure",
+          "If time slots are ambiguous, estimate them if possible but mark them clearly"
+        ]
+      },
+      "acceptanceCriteria": [
+        "OCR processing never crashes on poor quality images",
+        "Missing or unclear fields appear as empty strings or null in JSON",
+        "Ambiguous time slots are estimated and flagged with a visual indicator",
+        "User can edit fields that were unclear or missing",
+        "Error messages inform user if image quality is too poor to extract any data"
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "text": "Provide JSON export functionality that generates downloadable structured JSON of the current timetable matching the displayed table",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-user-1"
+        ],
+        "quotes": [
+          "The AI should provide both the editable table and structured JSON in one response",
+          "Generate a structured JSON for programmatic use"
+        ]
+      },
+      "acceptanceCriteria": [
+        "User can export current timetable as JSON file",
+        "Exported JSON matches the exact structure and content displayed in the table",
+        "JSON includes all days, time slots, tasks, and completion status",
+        "Export is available as a downloadable file"
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "text": "Use the uploaded timetable image (Screenshot_20260223_031932 (1).jpg) as test data for OCR extraction, parsing the daily routine from 8:30 (Wake Up) through 23:00 (Sleep) with tasks like Pharmaceutics, PIC, HAP II, Biochemistry, etc., across all seven days",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-user-1"
+        ],
+        "quotes": [
+          "The user has uploaded 1 image(s): Screenshot_20260223_031932 (1).jpg"
+        ]
+      },
+      "acceptanceCriteria": [
+        "System successfully extracts all time slots from 8:30 to 23:00",
+        "All task names are extracted accurately (Wake Up, Drink Water, Bath/Freshen Up, Pushups + Abs, Breakfast, Pharmaceutics, Cook Healthy Meal, PIC, Lunch, HAP II, Rest, Snack, Biochemistry, Gym/Walk, Dinner, Family/Chat, Night Revision, Sleep)",
+        "All seven days (M, T, W, T, F, S, S) are recognized and mapped correctly",
+        "Checkbox grid structure is preserved with daily completion tracking"
+      ]
+    },
+    {
+      "id": "REQ-9",
+      "text": "Apply a clean, modern design aesthetic with warm, energetic colors (avoiding blue and purple) featuring clear typography, intuitive table layouts, and visual time indicators that make the timetable inviting and motivating to use daily",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-user-1"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Color scheme uses warm tones (e.g., orange, yellow, green, red accents) appropriate for a daily routine tracker",
+        "Typography is clear and readable at various screen sizes",
+        "Table layout is intuitive with clear visual hierarchy",
+        "Time-based restrictions are communicated through visual cues (color, icons, disabled states)",
+        "Overall design feels cohesive and purpose-built for task tracking"
+      ]
+    }
+  ],
+  "constraints": [
+    "Done checkbox must enforce time restrictions - no manual override allowed",
+    "OCR processing must not crash on unclear images - maintain structure integrity",
+    "JSON structure must always match table display exactly",
+    "All Motoko backend logic must remain in the single main actor file",
+    "Do not modify immutable frontend paths (useInternetIdentity.ts, useInternetIdentity.tsx, useActor.ts, main.tsx, components/ui)"
+  ],
+  "nonGoals": [
+    "Multi-user collaboration or sharing timetables between users",
+    "Push notifications or reminders for upcoming tasks",
+    "Calendar integration with external services",
+    "Mobile native app development",
+    "Real-time synchronization across multiple devices",
+    "Advanced OCR training or custom handwriting recognition models",
+    "Recurring timetable templates or weekly patterns",
+    "Task statistics, analytics, or progress tracking over time"
+  ],
+  "imageRequirements": {
+    "required": [],
+    "edits": []
+  }
+}

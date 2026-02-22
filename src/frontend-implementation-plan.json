@@ -1,0 +1,152 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Digital Timetable App with Time-Restricted Task Completion Tracking",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "summary": "Implement image upload functionality for timetable images with support for common formats and visual feedback",
+      "acceptanceCriteria": [
+        "User can select and upload image files from their device",
+        "Supported formats include common image types (JPG, PNG)",
+        "Upload interface provides visual feedback during upload process"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/TimetableUpload.tsx",
+          "operation": "create",
+          "description": "Create image upload component using the blob-storage component to handle timetable image uploads. Use ExternalBlob.fromBytes() to create blob from selected file, attach upload progress tracking with withUploadProgress(), and call backend updateTimetableImage() method. Include file type validation for JPG/PNG formats. Verify the blob-storage component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/hooks/useTimetableUpload.ts",
+          "operation": "create",
+          "description": "Create custom hook to manage timetable upload state including file selection, upload progress percentage, error handling, and success states. Integrate with backend actor's updateTimetableImage method."
+        }
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "summary": "Display extracted timetable as an editable table with Day, Time, Task/Subject, and Done checkbox columns",
+      "acceptanceCriteria": [
+        "Table displays all extracted timetable entries in rows",
+        "Each row shows Day, Time slot, Task/Subject, and Done checkbox",
+        "Task/Subject fields are editable by the user",
+        "Changes to task names persist and update the underlying data structure",
+        "Table is responsive and accessible"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/TimetableTable.tsx",
+          "operation": "create",
+          "description": "Create responsive timetable table component displaying tasks grouped by day of week. Use backend Task interface structure with day, timeSlot (startHour, startMinute, endHour, endMinute), subject, location, completed, and inProgress fields. Include editable task name fields that trigger backend updates. Render time slots in 12-hour format with AM/PM. Implement accessible table markup with proper ARIA labels."
+        },
+        {
+          "path": "frontend/src/components/TimeRestrictedCheckbox.tsx",
+          "operation": "create",
+          "description": "Create specialized checkbox component that enforces time restrictions by comparing current time against task's scheduled timeSlot. Display visual indicators (tooltip, disabled styling) when checkbox is disabled outside time window. Use backend getTimeRemainingForTask method to show countdown. Allow checking only during active time slot. Keep completed tasks checked after time passes."
+        },
+        {
+          "path": "frontend/src/hooks/useTimetableData.ts",
+          "operation": "create",
+          "description": "Create custom hook to fetch and manage timetable data from backend. Call getWeeklySchedule() to retrieve all tasks organized by day. Provide methods to update task completion via toggleTaskCompletion() and mark tasks in progress via markTaskInProgress(). Handle real-time synchronization of task states."
+        }
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "summary": "Implement time-restricted Done checkbox that validates current time against task schedule before enabling completion",
+      "acceptanceCriteria": [
+        "Done checkbox is disabled when current time is outside the task's scheduled time slot",
+        "Done checkbox is enabled only during the exact scheduled time window",
+        "Visual indicator shows why checkbox is disabled (e.g., tooltip or message)",
+        "System uses accurate current time for validation",
+        "Completed tasks remain marked as done after the time window passes",
+        "User cannot manually enable or override time restrictions"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/utils/timeValidation.ts",
+          "operation": "create",
+          "description": "Create time validation utility functions to check if current time falls within a task's scheduled timeSlot (startHour, startMinute, endHour, endMinute). Implement functions to parse TimeSlot objects, compare with current Date, and return boolean indicating if task is active now. Handle edge cases like tasks spanning midnight."
+        },
+        {
+          "path": "frontend/src/hooks/useCurrentTime.ts",
+          "operation": "create",
+          "description": "Create custom hook that provides current time with automatic updates every minute. Use setInterval to refresh current Date object, enabling real-time checkbox state updates as time windows open and close. Clean up interval on unmount."
+        }
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "summary": "Provide JSON export functionality for downloading structured timetable data matching displayed table",
+      "acceptanceCriteria": [
+        "User can export current timetable as JSON file",
+        "Exported JSON matches the exact structure and content displayed in the table",
+        "JSON includes all days, time slots, tasks, and completion status",
+        "Export is available as a downloadable file"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/ExportButton.tsx",
+          "operation": "create",
+          "description": "Create export button component that fetches current timetable data via getWeeklySchedule() and transforms it into JSON format organized by day. Generate downloadable JSON file using Blob and URL.createObjectURL. Format output to match structure with days as keys and arrays of task objects with time, subject, location, and done status."
+        },
+        {
+          "path": "frontend/src/utils/jsonExport.ts",
+          "operation": "create",
+          "description": "Create utility functions to transform backend Task array format into exportable JSON structure. Map DayOfWeek enum to day strings, format TimeSlot as time range strings (e.g., '9:00-10:00'), and organize tasks by day. Generate downloadable blob with proper MIME type and filename."
+        }
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "summary": "Process uploaded timetable image Screenshot_20260223_031932 (1).jpg through OCR to extract daily routine from 8:30 to 23:00",
+      "acceptanceCriteria": [
+        "System successfully extracts all time slots from 8:30 to 23:00",
+        "All task names are extracted accurately (Wake Up, Drink Water, Bath/Freshen Up, Pushups + Abs, Breakfast, Pharmaceutics, Cook Healthy Meal, PIC, Lunch, HAP II, Rest, Snack, Biochemistry, Gym/Walk, Dinner, Family/Chat, Night Revision, Sleep)",
+        "All seven days (M, T, W, T, F, S, S) are recognized and mapped correctly",
+        "Checkbox grid structure is preserved with daily completion tracking"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/OCRProcessor.tsx",
+          "operation": "create",
+          "description": "Create component to handle OCR processing workflow. After image upload, trigger external OCR processing (browser-based or external API) to extract timetable structure from uploaded image. Parse OCR text output to identify time slots, task names, and day columns. Transform extracted data into OCRResult array format (day, startHour, startMinute, endHour, endMinute, subject, optional location) and submit to backend via processOCRResult() method. Display processing status and handle extraction errors gracefully."
+        },
+        {
+          "path": "frontend/src/utils/ocrParser.ts",
+          "operation": "create",
+          "description": "Create utility functions to parse raw OCR text output into structured timetable data. Implement pattern matching for time formats (8:30, 10:00, etc.), task name extraction, and day column recognition (M, T, W, T, F, S, S mapping to Monday-Sunday). Handle messy handwriting by providing fuzzy matching for common task names. Generate OCRResult objects compatible with backend interface. Mark ambiguous extractions with placeholder values that user can edit later."
+        }
+      ]
+    },
+    {
+      "id": "REQ-9",
+      "summary": "Apply warm, energetic color scheme with clear typography and intuitive layouts for daily routine tracking",
+      "acceptanceCriteria": [
+        "Color scheme uses warm tones (e.g., orange, yellow, green, red accents) appropriate for a daily routine tracker",
+        "Typography is clear and readable at various screen sizes",
+        "Table layout is intuitive with clear visual hierarchy",
+        "Time-based restrictions are communicated through visual cues (color, icons, disabled states)",
+        "Overall design feels cohesive and purpose-built for task tracking"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/index.css",
+          "operation": "modify",
+          "description": "Update global styles to implement warm color palette using CSS custom properties. Define primary colors using orange/amber tones, secondary colors with green accents, and warning/error states with red/yellow. Set typography scale with clear, readable font families. Establish spacing and sizing tokens for consistent layout. Add utility classes for task completion states (pending, active, completed) with appropriate warm color indicators."
+        },
+        {
+          "path": "frontend/tailwind.config.js",
+          "operation": "modify",
+          "description": "Extend Tailwind configuration with custom warm color palette (orange-500, amber-400, green-500, red-400) as primary theme colors. Configure custom spacing for timetable layouts. Add custom animation classes for task state transitions. Define typography scale with emphasis on readability. Ensure responsive breakpoints work well for table display on mobile and desktop."
+        },
+        {
+          "path": "frontend/src/components/TimetablePage.tsx",
+          "operation": "create",
+          "description": "Create main timetable page component that integrates TimetableUpload, TimetableTable, ExportButton, and OCRProcessor components into cohesive layout. Apply warm design aesthetic with clear visual hierarchy. Display upload section, processing status, editable timetable table, and export actions. Include current task highlight using getCurrentTask() backend method. Show time-based visual indicators for active, upcoming, and completed tasks using warm color scheme."
+        }
+      ]
+    }
+  ]
+}

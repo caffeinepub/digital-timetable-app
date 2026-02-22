@@ -1,0 +1,125 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-implement-image-upload-functionality-that-accepts-timetable-images-handwritten-or-printed-and-stores-them-for-processing",
+      "featureTitle": "Implement image upload functionality that accepts timetable images (handwritten or printed) and stores them for processing",
+      "files": [
+        "frontend/src/components/TimetableUpload.tsx",
+        "frontend/src/hooks/useTimetableUpload.ts"
+      ],
+      "components": [
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-1"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-display-extracted-timetable-as-an-editable-table-with-columns-for-day-time-task-subject-and-done-checkbox-allowing-users-to-modify-task-names-and-details",
+      "featureTitle": "Display extracted timetable as an editable table with columns for Day, Time, Task/Subject, and Done checkbox, allowing users to modify task names and details",
+      "files": [
+        "frontend/src/components/TimeRestrictedCheckbox.tsx",
+        "frontend/src/components/TimetableTable.tsx",
+        "frontend/src/hooks/useTimetableData.ts"
+      ],
+      "components": [
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-3"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-time-restricted-done-checkbox-that-only-enables-during-the-scheduled-time-slot-for-each-task-validating-current-time-against-task-schedule-before-allowing-completion-marking",
+      "featureTitle": "Implement time-restricted Done checkbox that only enables during the scheduled time slot for each task, validating current time against task schedule before allowing completion marking",
+      "files": [
+        "frontend/src/hooks/useCurrentTime.ts",
+        "frontend/src/utils/timeValidation.ts"
+      ],
+      "components": [
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-4"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-provide-json-export-functionality-that-generates-downloadable-structured-json-of-the-current-timetable-matching-the-displayed-table",
+      "featureTitle": "Provide JSON export functionality that generates downloadable structured JSON of the current timetable matching the displayed table",
+      "files": [
+        "frontend/src/components/ExportButton.tsx",
+        "frontend/src/utils/jsonExport.ts"
+      ],
+      "components": [
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-7"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-use-the-uploaded-timetable-image-screenshot-20260223-031932-1-jpg-as-test-data-for-ocr-extraction-parsing-the-daily-routine-from-8-30-wake-up-through-23-00-sleep-with-tasks-like-pharmaceutics-pic-hap-ii-biochemistry-etc-across-all-seven-days",
+      "featureTitle": "Use the uploaded timetable image (Screenshot_20260223_031932 (1).jpg) as test data for OCR extraction, parsing the daily routine from 8:30 (Wake Up) through 23:00 (Sleep) with tasks like Pharmaceutics, PIC, HAP II, Biochemistry, etc., across all seven days",
+      "files": [
+        "frontend/src/utils/ocrParser.ts"
+      ],
+      "components": [
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-8"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-apply-a-clean-modern-design-aesthetic-with-warm-energetic-colors-avoiding-blue-and-purple-featuring-clear-typography-intuitive-table-layouts-and-visual-time-indicators-that-make-the-timetable-inviting-and-motivating-to-use-daily",
+      "featureTitle": "Apply a clean, modern design aesthetic with warm, energetic colors (avoiding blue and purple) featuring clear typography, intuitive table layouts, and visual time indicators that make the timetable inviting and motivating to use daily",
+      "files": [
+        "frontend/src/index.css",
+        "frontend/tailwind.config.js"
+      ],
+      "components": [
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-9"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

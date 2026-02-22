@@ -1,0 +1,118 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        --radius: 0.75rem;
+        
+        /* Warm color palette - Light mode */
+        --background: 0.98 0.02 40;
+        --foreground: 0.25 0.03 30;
+        
+        --card: 1 0 0;
+        --card-foreground: 0.25 0.03 30;
+        
+        --popover: 1 0 0;
+        --popover-foreground: 0.25 0.03 30;
+        
+        /* Primary: Warm orange */
+        --primary: 0.65 0.18 40;
+        --primary-foreground: 0.98 0 0;
+        
+        /* Secondary: Soft amber */
+        --secondary: 0.92 0.08 60;
+        --secondary-foreground: 0.35 0.05 40;
+        
+        /* Muted: Light warm gray */
+        --muted: 0.95 0.02 50;
+        --muted-foreground: 0.55 0.03 40;
+        
+        /* Accent: Vibrant red-orange */
+        --accent: 0.88 0.12 50;
+        --accent-foreground: 0.35 0.05 40;
+        
+        /* Destructive: Warm red */
+        --destructive: 0.58 0.22 25;
+        --destructive-foreground: 0.98 0 0;
+        
+        /* Borders and inputs */
+        --border: 0.88 0.04 50;
+        --input: 0.88 0.04 50;
+        --ring: 0.65 0.18 40;
+        
+        /* Chart colors - warm palette */
+        --chart-1: 0.65 0.18 40;
+        --chart-2: 0.70 0.15 25;
+        --chart-3: 0.75 0.12 60;
+        --chart-4: 0.60 0.20 10;
+        --chart-5: 0.80 0.10 50;
+    }
+
+    .dark {
+        /* Dark mode - warm tones */
+        --background: 0.20 0.02 30;
+        --foreground: 0.95 0.02 40;
+        
+        --card: 0.25 0.02 30;
+        --card-foreground: 0.95 0.02 40;
+        
+        --popover: 0.22 0.02 30;
+        --popover-foreground: 0.95 0.02 40;
+        
+        /* Primary: Bright orange for dark mode */
+        --primary: 0.75 0.18 40;
+        --primary-foreground: 0.20 0.02 30;
+        
+        /* Secondary: Darker amber */
+        --secondary: 0.35 0.05 40;
+        --secondary-foreground: 0.95 0.02 40;
+        
+        /* Muted: Dark warm gray */
+        --muted: 0.30 0.02 35;
+        --muted-foreground: 0.70 0.03 40;
+        
+        /* Accent: Vibrant orange for dark */
+        --accent: 0.45 0.08 45;
+        --accent-foreground: 0.95 0.02 40;
+        
+        /* Destructive: Bright red for dark */
+        --destructive: 0.65 0.22 25;
+        --destructive-foreground: 0.20 0.02 30;
+        
+        /* Borders and inputs - subtle in dark */
+        --border: 0.30 0.02 35;
+        --input: 0.35 0.03 35;
+        --ring: 0.70 0.15 40;
+        
+        /* Chart colors - adjusted for dark */
+        --chart-1: 0.70 0.18 40;
+        --chart-2: 0.65 0.20 25;
+        --chart-3: 0.75 0.15 60;
+        --chart-4: 0.60 0.22 10;
+        --chart-5: 0.80 0.12 50;
+    }
+
+    * {
+        @apply border-border;
+    }
+    
+    body {
+        @apply bg-background text-foreground;
+        font-feature-settings: "rlig" 1, "calt" 1;
+    }
+}
+
+@layer utilities {
+    .task-pending {
+        @apply bg-orange-50/50 dark:bg-orange-950/20;
+    }
+    
+    .task-active {
+        @apply bg-amber-100/70 dark:bg-amber-900/30 border-l-4 border-amber-500;
+    }
+    
+    .task-completed {
+        @apply bg-green-50/50 dark:bg-green-950/20 opacity-75;
+    }
+}

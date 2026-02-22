@@ -1,0 +1,140 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 3,
+  "summary": "Digital timetable app with image upload, OCR extraction, time-restricted task completion tracking, and editable table/JSON output",
+  "architectural_notes": [
+    "OCR engine required for handwritten/printed timetable image processing",
+    "Real-time validation: current system time compared against scheduled time slots before enabling checkboxes",
+    "Dual output format: JSON for programmatic use and editable table for UI display",
+    "Synchronization required between JSON data structure and displayed table",
+    "Stateful tracking of task completion tied to time constraints"
+  ],
+  "known_issues": [],
+  "isFixRequest": false,
+  "existing_features": [
+    {
+      "id": "feature-implement-image-upload-functionality-that-accepts-timetable-images-handwritten-or-printed-and-stores-them-for-processing",
+      "title": "Implement image upload functionality that accepts timetable images (handwritten or printed) and stores them for processing",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-display-extracted-timetable-as-an-editable-table-with-columns-for-day-time-task-subject-and-done-checkbox-allowing-users-to-modify-task-names-and-details",
+      "title": "Display extracted timetable as an editable table with columns for Day, Time, Task/Subject, and Done checkbox, allowing users to modify task names and details",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-time-restricted-done-checkbox-that-only-enables-during-the-scheduled-time-slot-for-each-task-validating-current-time-against-task-schedule-before-allowing-completion-marking",
+      "title": "Implement time-restricted Done checkbox that only enables during the scheduled time slot for each task, validating current time against task schedule before allowing completion marking",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-provide-json-export-functionality-that-generates-downloadable-structured-json-of-the-current-timetable-matching-the-displayed-table",
+      "title": "Provide JSON export functionality that generates downloadable structured JSON of the current timetable matching the displayed table",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-use-the-uploaded-timetable-image-screenshot-20260223-031932-1-jpg-as-test-data-for-ocr-extraction-parsing-the-daily-routine-from-8-30-wake-up-through-23-00-sleep-with-tasks-like-pharmaceutics-pic-hap-ii-biochemistry-etc-across-all-seven-days",
+      "title": "Use the uploaded timetable image (Screenshot_20260223_031932 (1).jpg) as test data for OCR extraction, parsing the daily routine from 8:30 (Wake Up) through 23:00 (Sleep) with tasks like Pharmaceutics, PIC, HAP II, Biochemistry, etc., across all seven days",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-apply-a-clean-modern-design-aesthetic-with-warm-energetic-colors-avoiding-blue-and-purple-featuring-clear-typography-intuitive-table-layouts-and-visual-time-indicators-that-make-the-timetable-inviting-and-motivating-to-use-daily",
+      "title": "Apply a clean, modern design aesthetic with warm, energetic colors (avoiding blue and purple) featuring clear typography, intuitive table layouts, and visual time indicators that make the timetable inviting and motivating to use daily",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Image upload and OCR extraction of timetable data (days, time slots, subjects, optional location)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Display extracted timetable as editable table with day, time slot, subject, and 'Done' checkbox",
+      "reqIds": [
+        "AR-1"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Time-restricted 'Done' checkbox - only enabled during the scheduled time slot for each task",
+      "reqIds": [
+        "AR-2"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Generate structured JSON output matching the timetable format",
+      "reqIds": [
+        "AR-1"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-5",
+      "summary": "Error handling for unclear images or missing data - maintain structure without crashing",
+      "reqIds": [
+        "AR-1"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-6",
+      "summary": "Allow user to edit subjects or activities if extraction mistakes occur",
+      "reqIds": [
+        "AR-2"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-8",
+      "summary": "Extract timetable data from uploaded images using OCR, parsing days of the week (Monday-Sunday), time slots, task/subject names, and optional location information, converting to structured JSON format",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-11",
+      "summary": "Store timetable data with task completion status in backend, maintaining synchronization between table display and JSON structure",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-12",
+      "summary": "Handle unclear or incomplete timetable images gracefully by leaving blank fields in the JSON structure without crashing, estimating ambiguous time slots when possible and marking them clearly",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "status": "pending"
+    }
+  ],
+  "gameProjectType": "none",
+  "projectName": "Digital Timetable App",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

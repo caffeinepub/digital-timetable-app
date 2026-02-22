@@ -1,0 +1,17 @@
+{
+  "frontend/src/App.tsx": "Main application component that wraps the app with ThemeProvider and QueryClient, rendering the TimetablePage with toast notifications.",
+  "frontend/src/pages/TimetablePage.tsx": "Primary page component that orchestrates the timetable app layout including header, upload section, current task highlight, timetable table, and footer with warm gradient background.",
+  "frontend/src/components/TimetableUpload.tsx": "Image upload component with drag-and-drop interface, file validation, preview, progress tracking, and integration with blob storage for timetable image uploads.",
+  "frontend/src/components/TimetableTable.tsx": "Displays weekly schedule organized by day in responsive tables with time slots, tasks, locations, status badges, and time-restricted checkboxes.",
+  "frontend/src/components/TimeRestrictedCheckbox.tsx": "Specialized checkbox component that enforces time-slot restrictions, showing lock icon when disabled and providing tooltips explaining availability.",
+  "frontend/src/components/CurrentTaskCard.tsx": "Highlighted card component displaying the currently active task with animated pulse effect and warm gradient styling.",
+  "frontend/src/components/ExportButton.tsx": "Button component that exports the current timetable data as a downloadable JSON file with proper formatting.",
+  "frontend/src/hooks/useTimetableData.ts": "Custom React Query hooks for fetching weekly schedule, current task, and mutations for toggling task completion and marking tasks in progress.",
+  "frontend/src/hooks/useTimetableUpload.ts": "Custom hook managing timetable image upload with progress tracking, blob storage integration, and OCR processing workflow.",
+  "frontend/src/hooks/useCurrentTime.ts": "Custom hook providing real-time current hour, minute, and day of week with automatic minute-by-minute updates.",
+  "frontend/src/utils/timeValidation.ts": "Utility functions for time slot validation, formatting time ranges in 12-hour format, and converting day enums to readable names.",
+  "frontend/src/utils/jsonExport.ts": "Utility function that transforms weekly schedule data into JSON format and triggers browser download with proper filename.",
+  "frontend/src/utils/ocrParser.ts": "OCR processing utility containing predefined timetable data extracted from the uploaded image, simulating OCR extraction with all daily tasks from 8:30 to 23:00.",
+  "frontend/src/index.css": "Global styles with warm OKLCH color system (orange, amber, red tones) for both light and dark modes, plus utility classes for task states.",
+  "frontend/tailwind.config.js": "Tailwind configuration extended with warm color palette, custom border radii, warm shadows, and custom animations for the timetable app aesthetic."
+}
